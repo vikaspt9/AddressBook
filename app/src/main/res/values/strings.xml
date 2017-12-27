@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">AddressBook</string>
+    <string name="action_settings">Settings</string>
+    <string name="txt_name">Name</string>
+    <string name="txt_phone">Phone</string>
+    <string name="txt_email">Email</string>
+    <string name="btn_save">Save</string>
+    <string name="toast_message">Contact Saved</string>
+</resources>
