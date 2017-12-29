@@ -15,6 +15,10 @@ public class AddEntry extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_entry);
+
+       /* Intent intent = getIntent();
+        String contactId =  intent.getStringExtra("contact_id");
+        Log.d("clicked contaci ID===>",contactId);*/
     }
 
     public void saveData(View view) {
@@ -25,7 +29,7 @@ public class AddEntry extends AppCompatActivity {
         EditText txtEmail = (EditText) findViewById(R.id.txtEmail);
 
         Log.d("Insert: ", "Inserting ..");
-        db.addContact(new Contacts(txtName.getText().toString(), Integer.parseInt(txtPhone.getText().toString()), txtEmail.getText().toString()));
+        db.addContact(new Contacts(txtName.getText().toString(), txtPhone.getText().toString(), txtEmail.getText().toString()));
 
         intent.putExtra(SAVE_MESSAGE,"OK");
         startActivity(intent);

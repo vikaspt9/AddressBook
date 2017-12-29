@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
@@ -23,7 +24,7 @@ import static android.support.design.widget.Snackbar.make;
 
 public class MainActivity extends AppCompatActivity {
 
-
+    public static final int ADD_CONTACT_REQUEST = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -40,13 +41,9 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();*/
                 Intent intent = new Intent(MainActivity.this, AddEntry.class);
                 startActivity(intent);
+                //startActivityForResult(intent,ADD_CONTACT_REQUEST);
             }
         });
-
-        Log.d("Reading: ", "Reading all contacts..");
-       // List<Contacts> contacts = db.getAllContacts();
-
-        Cursor cursor = db.getAllContactsCursor();
 
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
@@ -56,12 +53,25 @@ public class MainActivity extends AppCompatActivity {
             showToast();
         }
 
+        Log.d("Reading: ", "Reading all contacts..");
+        final Cursor cursor = db.getAllContactsCursor();
         String[] fromColumns = {"name"};
         int[] toViews = {R.id.label};
-        SimpleCursorAdapter adapter = new SimpleCursorAdapter(this,R.layout.contact_list, cursor,fromColumns,toViews);
+        final SimpleCursorAdapter adapter = new SimpleCursorAdapter(this,R.layout.contact_list, cursor,fromColumns,toViews);
 
-        ListView listView = (ListView) findViewById(R.id.contactList);
+        final ListView listView = (ListView) findViewById(R.id.contactList);
         listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int pos, long rowId) {
+
+                Intent viewEntryIntent = new Intent(MainActivity.this, ViewEntry.class);
+                Cursor c = (Cursor) adapter.getItem(pos);
+                viewEntryIntent.putExtra("contact_id", c.getString(c.getColumnIndex("_id")));
+                startActivity(viewEntryIntent);
+            }
+        });
 
 
         /*for (Contacts cn : contacts) {
@@ -70,6 +80,8 @@ public class MainActivity extends AppCompatActivity {
             Log.d("Name: ", log);
         }*/
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

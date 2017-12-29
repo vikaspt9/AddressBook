@@ -8,21 +8,21 @@ public class Contacts {
 
     private int id;
     private String name;
-    private int phone;
+    private String phone;
     private String email;
 
     public Contacts() {
 
     }
 
-    public Contacts(int id, String name, int phone, String email) {
+    public Contacts(int id, String name, String phone, String email) {
         this.id = id;
         this.name = name;
         this.phone = phone;
         this.email = email;
     }
 
-    public Contacts(String name, int phone, String email) {
+    public Contacts(String name, String phone, String email) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -44,11 +44,11 @@ public class Contacts {
         this.name = name;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 

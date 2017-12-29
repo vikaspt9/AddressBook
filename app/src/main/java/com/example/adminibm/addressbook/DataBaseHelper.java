@@ -73,13 +73,13 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     // Getting single contact
     public Contacts getContact(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.query(TABLE_CONTACTS, new String[]{KEY_ID, KEY_NAME, KEY_PH_NO, KEY_EMAIL}, KEY_ID + "?", new String[]{String.valueOf(id)}, null, null, null, null);
+        Cursor cursor = db.query(TABLE_CONTACTS, new String[]{KEY_ID, KEY_NAME, KEY_PH_NO, KEY_EMAIL}, KEY_ID + "=?", new String[]{String.valueOf(id)}, null, null, null, null);
 
         if (cursor != null) {
             cursor.moveToFirst();
         }
 
-        Contacts contacts = new Contacts(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getInt(2), cursor.getString(3));
+        Contacts contacts = new Contacts(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2), cursor.getString(3));
         return contacts;
     }
 
@@ -102,7 +102,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 Contacts contact = new Contacts();
                 contact.setId(Integer.parseInt(cursor.getString(0)));
                 contact.setName(cursor.getString(1));
-                contact.setPhone(cursor.getInt(2));
+                contact.setPhone(cursor.getString(2));
                 contact.setEmail(cursor.getString(3));
                 // Adding contact to list
                 contactList.add(contact);
